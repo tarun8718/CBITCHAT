@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
-
+const formatMessage = require('./utils/messages');
 
 const app= express();
 server = http.createServer(app);
@@ -12,14 +12,17 @@ app.use(express.static(path.join(__dirname,'Public')));
 
 io.on('connection',socket => {
 
-    socket.emit('message','Welcome to Chat!');
+    socket.emit('message',formatMessage('chatBot', 'Welcome to Chat!'));
 
-    socket.broadcast.emit('message','A user has joined the chat!');
+    socket.broadcast.emit('message',formatMessage('chatBot', 'A user has joined the chat!'));
 
     socket.on('disconnect',() => {
-        io.emit('message','A user has left the chat!');
+        io.emit('message',formatMessage('chatBot', 'A user has left the chat!'));
     });
 
+    socket.on('chatMessage',(msg) => {
+        io.emit('message', formatMessage('USER', msg));
+    });
 });
 
 const PORT = process.env.PORT || 3000;
