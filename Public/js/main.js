@@ -11,6 +11,14 @@ const socket = io();
 
 socket.emit('joinRoom', { username, room });
 
+socket.on('initialize',(data) => {
+    for(i=0;i<data.length;i++)
+    {
+        outputMessage(data[i]);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+});
+
 socket.on('roomUsers',({room, users}) => {
     outputRoomName(room);
     outputUsers(users);
