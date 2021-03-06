@@ -38,7 +38,9 @@ io.on('connection',socket => {
             socket.emit('message', {message, username});
         });
         
-        socket.broadcast.to(user.room).emit('message',formatMessage(user.room, 'chatBot', `${user.username} has joined the chat!`), user.username);
+        const message = formatMessage(user.room, 'chatBot', `${user.username} has joined the chat!`);
+
+        socket.broadcast.to(user.room).emit('message', {message, username});
         
         io.to(user.room).emit('roomUsers', {
             room: user.room,
@@ -68,7 +70,9 @@ io.on('connection',socket => {
         const user = userLeaves(socket.id);
 
         if(user){
-            io.to(user.room).emit('message',formatMessage(user.room, 'chatBot', `${user.username} has left the chat!`), user.username);
+            const message = formatMessage(user.room, 'chatBot', `${user.username} has left the chat!`);
+            const username = user.username;
+            io.to(user.room).emit('message', {message, username});
 
             io.to(user.room).emit('roomUsers', {
                 room: user.room,
