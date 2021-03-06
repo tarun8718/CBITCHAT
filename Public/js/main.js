@@ -11,10 +11,17 @@ const socket = io();
 
 socket.emit('joinRoom', { username, room });
 
-socket.on('initialize',(data) => {
+socket.on('initialize',(data,username) => {
     for(i=0;i<data.length;i++)
     {
-        outputMessage(data[i]);
+        if(data[i].username === username)
+        {
+            outputUserMessage(data[i]);
+        }
+        else
+        {
+            outputMessage(data[i]);
+        }
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 });
@@ -22,12 +29,6 @@ socket.on('initialize',(data) => {
 socket.on('roomUsers',({room, users}) => {
     outputRoomName(room);
     outputUsers(users);
-});
-
-socket.on('message',message => {
-    outputMessage(message);
-
-    chatMessages.scrollTop = chatMessages.scrollHeight;
 });
 
 chatForm.addEventListener('submit',(e) => {
@@ -40,6 +41,44 @@ chatForm.addEventListener('submit',(e) => {
     e.target.elements.msg.value = '';
     e.target.elements.msg.focus();
 });
+
+socket.on('message', MSG => {
+    const message = MSG.message;
+    if(MSG.message.username === username)
+    {
+        outputUserMessage(message);
+    }
+    else if(MSG.message.username === 'chatBot')
+    {
+        outputChatBotMessage(message);
+    }
+    else
+    {
+        outputMessage(message);
+    }
+
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+});
+
+function outputUserMessage(message) {
+    const div = document.createElement('div');
+    div.classList.add('userMessage');
+    div.innerHTML = `<p class="meta">${message.username} <span>${message.time}</span></p>
+    <p class="text">
+        ${message.text}
+    </p>`;
+    document.querySelector('.chat-messages').appendChild(div)
+}
+
+function outputChatBotMessage(message) {
+    const div = document.createElement('div');
+    div.classList.add('chatbotMessage');
+    div.innerHTML = `<p class="meta">${message.username} <span>${message.time}</span></p>
+    <p class="text">
+        ${message.text}
+    </p>`;
+    document.querySelector('.chat-messages').appendChild(div)
+}
 
 function outputMessage(message) {
     const div = document.createElement('div');

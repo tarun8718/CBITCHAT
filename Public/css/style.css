@@ -101,7 +101,37 @@ a {
 	border-radius: 5px;
 }
 
+.chat-messages .userMessage {
+	padding: 10px;
+	margin-bottom: 15px;
+	background-color: rgba(206, 27, 27, 0.5);
+	border-radius: 5px;
+}
+
+.chat-messages .chatbotMessage {
+	padding: 10px;
+	margin-bottom: 15px;
+	background-color: rgba(182, 179, 20, 0.5);
+	border-radius: 5px;
+}
+
 .chat-messages .message .meta {
+	font-size: 15px;
+	font-weight: bold;
+	color: var(--dark-color-b);
+	opacity: 0.7;
+	margin-bottom: 7px;
+}
+
+.chat-messages .userMessage .meta {
+	font-size: 15px;
+	font-weight: bold;
+	color: var(--dark-color-b);
+	opacity: 0.7;
+	margin-bottom: 7px;
+}
+
+.chat-messages .chatbotMessage .meta {
 	font-size: 15px;
 	font-weight: bold;
 	color: var(--dark-color-b);
@@ -111,6 +141,14 @@ a {
 
 .chat-messages .message .meta span {
 	color: #777;
+}
+
+.chat-messages .userMessage .meta span {
+	color: rgb(180, 91, 91);
+}
+
+.chat-messages .chatbotMessage .meta span {
+	color: rgb(180, 174, 91);
 }
 
 .chat-form-container {

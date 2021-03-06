@@ -32,12 +32,13 @@ io.on('connection',socket => {
 
         socket.join(user.room);
         Room.find({room: user.room}).exec((err,data) =>{
-            console.log(data);
-            socket.emit('initialize',data);
-            socket.emit('message',formatMessage(user.room, 'chatBot', 'Welcome to Chat!'));
+            socket.emit('initialize',data, user.username);
+            const message = formatMessage(user.room, 'chatBot', 'Welcome to Chat!');
+            const username = user.username;
+            socket.emit('message', {message, username});
         });
         
-        socket.broadcast.to(user.room).emit('message',formatMessage(user.room, 'chatBot', `${user.username} has joined the chat!`));
+        socket.broadcast.to(user.room).emit('message',formatMessage(user.room, 'chatBot', `${user.username} has joined the chat!`), user.username);
         
         io.to(user.room).emit('roomUsers', {
             room: user.room,
@@ -49,17 +50,17 @@ io.on('connection',socket => {
 
         const user = getCurrentUser(socket.id);
 
-        const mesg = formatMessage(user.room, user.username, msg);
+        const message = formatMessage(user.room, user.username, msg);
 
         const room = new Room({
-            room: mesg.room,
-            username: mesg.username,
-            text: mesg.text,
-            time: mesg.time
+            room: message.room,
+            username: message.username,
+            text: message.text,
+            time: message.time
         });
         room.save();
-
-        io.to(user.room).emit('message', mesg);
+        const username = user.username;
+        io.to(user.room).emit('message', {message, username});
     });
 
     socket.on('disconnect',() => {
@@ -67,7 +68,7 @@ io.on('connection',socket => {
         const user = userLeaves(socket.id);
 
         if(user){
-            io.to(user.room).emit('message',formatMessage(user.room, 'chatBot', `${user.username} has left the chat!`));
+            io.to(user.room).emit('message',formatMessage(user.room, 'chatBot', `${user.username} has left the chat!`), user.username);
 
             io.to(user.room).emit('roomUsers', {
                 room: user.room,
