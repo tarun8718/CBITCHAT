@@ -14,6 +14,7 @@ Go to localhost:3000
   - [ ] Sign In Page Backend
   - [ ] Sign Up Page Backend
   - [ ] Rooms Page Backend
+  - [ ] Create Room (Assigned to [@ehabkaram1](https://github.com/ehabkaram1))
   - [ ] Update DB Schema
   - [ ] ADD Toasts.js 
   - [ ] Public Private Rooms
