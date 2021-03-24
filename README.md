@@ -11,8 +11,12 @@ Go to localhost:3000
 ```
 
 ### TODO:
-  - [ ] Sign In Page
-  - [ ] Sign Up Page
+  - [ ] Sign In Page Backend
+  - [ ] Sign Up Page Backend
+  - [ ] Rooms Page Backend
+  - [ ] Update DB Schema
+  - [ ] ADD Toasts.js 
+  - [ ] Public Private Rooms
   - [ ] UI Pollish (Assigned to [@ehabkaram1](https://github.com/ehabkaram1))
   - [ ] Profile Picture ( Low Priority)
  
