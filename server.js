@@ -3,7 +3,10 @@ const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
 const mongoose  = require('mongoose');
+const bodyParser = require('body-parser');
 const Room = require('./models/roomMsgs');
+var session = require('express-session');
+var MongoStore = require('connect-mongo');
 
 mongoose.connect("mongodb+srv://tarun:tarun123@cluster0.kmv1z.mongodb.net/Chat?retryWrites=true&w=majority",{
     useNewUrlParser:true,
@@ -23,7 +26,28 @@ const app= express();
 server = http.createServer(app);
 const io = socketio(server);
 
-app.use(express.static(path.join(__dirname,'Public')));
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+});
+
+app.use(session({
+    secret: 'work hard',
+    resave: true,
+    saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: "mongodb+srv://tarun:tarun123@cluster0.kmv1z.mongodb.net/Chat?retryWrites=true&w=majority"
+    })
+}));
+
+
+app.use(express.static(path.join(__dirname,'views')));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+const index = require('./Routes/index');
+app.use('/', index);
 
 io.on('connection',socket => {
     socket.on('joinRoom',({ username, room}) => {

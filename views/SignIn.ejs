@@ -19,17 +19,7 @@
 				<h1><i class="fas fa-smile"></i> CBITChat</h1>
 			</header>
 			<main class="join-main">
-				<form action="SignIn.html">
-                    <div class="form-control">
-						<label for="username">Hall Ticket no</label>
-						<input
-							type="text"
-							name="username"
-							id="username"
-							placeholder="Enter Hall Ticket..."
-							required
-						/>
-					</div>
+				<form id="signin">
 					<div class="form-control">
 						<label for="username">Username</label>
 						<input
@@ -37,16 +27,6 @@
 							name="username"
 							id="username"
 							placeholder="Enter username..."
-							required
-						/>
-					</div>
-                    <div class="form-control">
-						<label for="username">Email</label>
-						<input
-							type="text"
-							name="username"
-							id="username"
-							placeholder="Enter Email..."
 							required
 						/>
 					</div>
@@ -60,9 +40,18 @@
 							required
 						/>
 					</div>
+					<div class="mssg bg-danger">
+						<span id="check"></span>
+					</div>
 					<button type="submit" class="btn">Login</button>
+					<div id="LangTable" style="display: none;"><a href="/rooms" id="aa"></a>
+					</div>
 				</form>
 			</main>
 		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+		</script>
+		<script src="/socket.io/socket.io.js"></script>
+  		<script src="js/signin.js"></script>
 	</body>
 </html>
