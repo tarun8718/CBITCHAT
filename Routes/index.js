@@ -84,4 +84,8 @@ router.get('/rooms', function (req, res, next) {
 	});
 });
 
+router.get("/createroom", function (req, res, next) {
+  return res.render("newroom.ejs");
+});
+
 module.exports = router;
