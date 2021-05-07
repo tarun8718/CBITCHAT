@@ -10,13 +10,13 @@
 			integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
 			crossorigin="anonymous"
 		/>
-		<link rel="stylesheet" href="css/Login.css" />
+		<link rel="stylesheet" href="css/signup.css" />
 		<title>ChatCord App</title>
 	</head>
 	<body>
 		<div class="join-container">
 			<header class="join-header">
-				<h1><i class="fas fa-smile"></i> CBITChat</h1>
+				<a href="/" style="text-decoration: none; color: inherit;"><h1><i class="fas fa-smile"></i> CBITChat</h1></a>
 			</header>
 			<main class="join-main">
 				<form id="newroom">
@@ -41,9 +41,18 @@
                             />
                         </div>
                     </div>
-                    <div class="form-control">
-						<label >Private Room</label>
-						<input type="checkbox" id="myCheck" onclick="myFunction()">
+                    <div class="prv" style="
+					display: flex;
+				">
+						<input type="checkbox" id="myCheck" onclick="myFunction()" style="
+						border-right-width: 10px;
+						padding-left: 10px;
+						padding-right: 10px;
+					">
+						<label style="
+						padding-left: 10px;
+						padding-right: 10px;
+					" >Private Room</label>
 					</div>
 					<div class="mssg bg-danger">
 						<span id="check"></span>
