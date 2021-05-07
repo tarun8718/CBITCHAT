@@ -102,9 +102,22 @@ router.post("/rooms", function (req, res, next) {
       res.redirect("/");
     } else {
       console.log("*******found");
-      req.session.room = req.body.room;
-      req.session.name = data.username;
-      res.send({ Success: "Success!" });
+      console.log(req.body);
+      newRoom.findOne({ roomname: req.body.room }, function (err, dat) {
+        if (dat) {
+          if (dat.password == req.body.password) {
+            req.session.room = req.body.room;
+            req.session.name = data.username;
+            res.send({ Success: "Success!" });
+          } else {
+            console.log(req.body.password);
+            console.log(dat);
+            res.send({ Success: "Wrong KEY!" });
+          }
+        } else {
+          res.send({ Success: "This Room Is not registered!" });
+        }
+      });
     }
   });
 });
