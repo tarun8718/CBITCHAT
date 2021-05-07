@@ -5,6 +5,7 @@ const socketio = require('socket.io');
 const mongoose  = require('mongoose');
 const bodyParser = require('body-parser');
 const Room = require('./models/roomMsgs');
+const newRoom = require('./models/newRoom');
 var session = require('express-session');
 var MongoStore = require('connect-mongo');
 
@@ -50,6 +51,7 @@ const index = require('./Routes/index');
 app.use('/', index);
 
 io.on('connection',socket => {
+
     socket.on('joinRoom',({ username, room}) => {
 
         const user = userJoin(socket.id, username, room);
@@ -69,6 +71,14 @@ io.on('connection',socket => {
         io.to(user.room).emit('roomUsers', {
             room: user.room,
             users: getRoomUsers(user.room)
+        });
+    });
+    
+
+    socket.on('getRooms',() => {
+        newRoom.find({}).exec((err,data) => {
+            console.log("****Inside Server getRooms");
+            socket.emit("InitRooms",data);
         });
     });
 

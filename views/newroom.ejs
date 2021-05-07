@@ -19,7 +19,7 @@
 				<h1><i class="fas fa-smile"></i> CBITChat</h1>
 			</header>
 			<main class="join-main">
-				<form action="SignIn.html">
+				<form id="newroom">
 					<div class="form-control">
 						<label for="room">Room Name</label>
 						<input
@@ -38,7 +38,6 @@
                                 name="password"
                                 id="password"
                                 placeholder="Enter Room Key"
-                                required
                             />
                         </div>
                     </div>
@@ -46,10 +45,16 @@
 						<label >Private Room</label>
 						<input type="checkbox" id="myCheck" onclick="myFunction()">
 					</div>
+					<div class="mssg bg-danger">
+						<span id="check"></span>
+					</div>
 					<button type="submit" class="btn">Create a Room</button>
+					<div id="LangTable" style="display: none;"><a href="/rooms" id="aa"></a>
 				</form>
 			</main>
 		</div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+		</script>
 		<script src="/socket.io/socket.io.js"></script>
   		<script src="js/newroom.js"></script>
 	</body>

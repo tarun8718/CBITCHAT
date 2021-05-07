@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
-  <link rel="stylesheet" href="css/style.css">
-  <title>ChatCord App</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <title></title>
 </head>
 <body>
   <div class="chat-container">
     <header class="chat-header">
-      <h1><i class="fas fa-smile"></i> CBITChat</h1>
+      <h1><i class="fas fa-smile"></i> CBIT</h1>
       <a href="index.html" class="btn">Leave Room</a>
     </header>
     <main class="chat-main">
@@ -39,6 +39,108 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.6/qs.min.js" integrity="sha512-3TmPrquYLaAsUmZKXRARTDC5siWhLAdBVqNo4dWpDABBtLU62AaoTaQJEvjxjExcZYurO6i1dnK85k8pPIBlRg==" crossorigin="anonymous"></script>
   <script src="/socket.io/socket.io.js"></script>
-  <script src="js/main.js"></script>
+  <script type="text/javascript">
+
+    var username = <%-JSON.stringify(username);%>;
+    var room = <%-JSON.stringify(room);%>;
+
+    const chatForm = document.getElementById('chat-form');
+    const chatMessages = document.querySelector('.chat-messages');
+    const roomName = document.getElementById('room-name');
+    const userList = document.getElementById('users');
+
+    const socket = io();
+
+    socket.emit('joinRoom', { username, room });
+
+    socket.on('initialize',(data,username) => {
+        for(i=0;i<data.length;i++)
+        {
+            if(data[i].username === username)
+            {
+                outputUserMessage(data[i]);
+            }
+            else
+            {
+                outputMessage(data[i]);
+            }
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    });
+
+    socket.on('roomUsers',({room, users}) => {
+        outputRoomName(room);
+        outputUsers(users);
+    });
+
+    chatForm.addEventListener('submit',(e) => {
+        e.preventDefault();
+
+        const msg = e.target.elements.msg.value;
+        
+        socket.emit('chatMessage', msg);
+
+        e.target.elements.msg.value = '';
+        e.target.elements.msg.focus();
+    });
+
+    socket.on('message', MSG => {
+        const message = MSG.message;
+        if(MSG.message.username === username)
+        {
+            outputUserMessage(message);
+        }
+        else if(MSG.message.username === 'chatBot')
+        {
+            outputChatBotMessage(message);
+        }
+        else
+        {
+            outputMessage(message);
+        }
+
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    });
+
+    function outputUserMessage(message) {
+        const div = document.createElement('div');
+        div.classList.add('userMessage');
+        div.innerHTML = `<span>${message.time}</span><p class="meta">${message.username}</p>
+        <p class="text">
+            ${message.text}
+        </p>`;
+        document.querySelector('.chat-messages').appendChild(div)
+    }
+
+    function outputChatBotMessage(message) {
+        const div = document.createElement('div');
+        div.classList.add('chatbotMessage');
+        div.innerHTML = `<p class="meta">${message.username}</p>
+        <p class="text">
+            ${message.text}
+        </p>`;
+        document.querySelector('.chat-messages').appendChild(div)
+    }
+
+    function outputMessage(message) {
+        const div = document.createElement('div');
+        div.classList.add('message');
+        div.innerHTML = `<span>${message.time}</span><p class="meta">${message.username}</p>
+        <p class="text">
+            ${message.text}
+        </p>`;
+        document.querySelector('.chat-messages').appendChild(div)
+    }
+
+    function outputRoomName(room) {
+        roomName.innerText = room;
+    }
+
+    function outputUsers(users) {
+        userList.innerHTML = `
+            ${users.map(user => `<li>${user.username}</li>`).join('')}
+        `;
+    }
+  </script>
 </body>
 </html>
