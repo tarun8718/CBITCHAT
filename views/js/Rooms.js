@@ -56,7 +56,7 @@ $(document).ready(function(){
             data: $('#Rooms').serialize(),
             dataType: "json",
             success: function(response){
-                alert("a");
+                //alert("a");
                 console.log("SUCCESS!!!!!!!");
                 $('#Rooms')[0].reset();
 
