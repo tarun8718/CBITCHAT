@@ -27,7 +27,9 @@ ul {
 }
 
 a {
-	text-decoration: none;
+	margin: 0px 15px;
+    width: 45%;
+    color: #2a94c7;
 }
 
 .btn {
@@ -231,8 +233,8 @@ a {
 }
 
 .join-main .btn {
-	margin-top: 20px;
-	width: 100%;
+	margin: 20px 15px;
+	width: 50%;
 }
 
 @media (max-width: 700px) {
