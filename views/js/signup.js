@@ -12,6 +12,16 @@ $(document).ready(function(){
                 //alert("a");
                 //console.log(response.Success);
                 $('#signup')[0].reset();
+                document.getElementById("check").innerHTML=response.Success;
+                 
+                setTimeout(function(){
+                    document.getElementById("check").innerHTML="";
+                },3000);
+
+                if (response.Success=="You are regestered,You can login now.") {
+                    document.getElementById("aa").click();
+                };
+
                  },
                  error: function() {
                  }
