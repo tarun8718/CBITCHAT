@@ -1,5 +1,5 @@
 const express = require("express");
-const socketio = require('socket.io');
+const socketio = require("socket.io");
 const router = express.Router();
 const User = require("../models/user");
 const newRoom = require("../models/newRoom");
@@ -111,8 +111,15 @@ router.post("/rooms", function (req, res, next) {
             res.send({ Success: "Success!" });
           } else {
             console.log(req.body.password);
+            console.log("HAHA");
             console.log(dat);
-            res.send({ Success: "Wrong KEY!" });
+            if (dat.status === "Public") {
+              req.session.room = req.body.room;
+              req.session.name = data.username;
+              res.send({ Success: "Success!" });
+            } else {
+              res.send({ Success: "Wrong KEY!" });
+            }
           }
         } else {
           res.send({ Success: "This Room Is not registered!" });
@@ -193,8 +200,10 @@ router.get("/chat", function (req, res, next) {
   console.log(req.session.name);
   username = req.session.name;
   room = req.session.room;
-  return res.render("chat.ejs",{room: req.session.room, username: req.session.name});
+  return res.render("chat.ejs", {
+    room: req.session.room,
+    username: req.session.name,
+  });
 });
-
 
 module.exports = router;
