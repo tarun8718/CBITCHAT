@@ -14,11 +14,11 @@ Go to localhost:3000
   - [x] Sign In Page Backend
   - [x] Sign Up Page Backend
   - [x] Rooms Page Backend
-  - [x] Create Room (Assigned to [@ehabkaram1](https://github.com/ehabkaram1))
+  - [x] Create Room 
   - [x] Update DB Schema
   - [x] ADD Toasts.js 
   - [x] Public Private Rooms
-  - [x] UI Pollish (Assigned to [@ehabkaram1](https://github.com/ehabkaram1))
+  - [x] UI Pollish
   - [ ] Profile Picture ( Low Priority)
  
 
