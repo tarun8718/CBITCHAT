@@ -68,6 +68,7 @@ a {
 .chat-sidebar {
 	background: rgb(35, 39, 42);
 	color: #fff;
+	min-height: 500px;
 	padding: 20px 20px 60px;
 	overflow-y: scroll;
 }
@@ -230,6 +231,10 @@ a {
 @media (max-width: 700px) {
 	.chat-main {
 		display: block;
+	}
+
+	.chat-messages {
+		min-height: 600px;
 	}
 
 	.chat-sidebar {
