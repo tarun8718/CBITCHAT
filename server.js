@@ -10,7 +10,7 @@ var session = require("express-session");
 var MongoStore = require("connect-mongo");
 
 mongoose.connect(
-  "mongodb+srv://tarun:tarun123@cluster0.kmv1z.mongodb.net/Chat?retryWrites=true&w=majority",
+  process.env.MONGOURI,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -46,7 +46,7 @@ app.use(
     saveUninitialized: false,
     store: MongoStore.create({
       mongoUrl:
-        "mongodb+srv://tarun:tarun123@cluster0.kmv1z.mongodb.net/Chat?retryWrites=true&w=majority",
+      process.env.MONGOURI,
     }),
   })
 );
