@@ -1,4 +1,4 @@
-# CBITCHAT- By [@ehabkaram1](https://github.com/ehabkaram1) and ME
+# MONETS.CHAT- By [@ehabkaram1](https://github.com/ehabkaram1) and ME
 
  ### Usage:
 ```
