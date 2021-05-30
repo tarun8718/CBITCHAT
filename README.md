@@ -2,8 +2,8 @@
 
  ### Usage:
 ```
-git clone https://github.com/tarun8718/Node-Socketio-MongoDb-chatApp.git
-cd Node-Socketio-MongoDb-chatApp 
+git clone https://github.com/tarun8718/MONETS.CHAT.git
+cd MONETS.CHAT
 npm install
 npm run dev
 
